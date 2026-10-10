@@ -1,0 +1,20 @@
+{
+  "name": "まいにち食事ログ",
+  "short_name": "食事ログ",
+  "description": "ダイエットのための食事とカロリーの記録。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#EFF3F0",
+  "theme_color": "#1F6F5C",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

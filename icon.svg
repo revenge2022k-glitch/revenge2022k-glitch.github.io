@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="まいにち食事ログ">
+  <rect width="512" height="512" rx="112" fill="#1F6F5C"/>
+  <!-- 茶碗 -->
+  <path d="M116 268h280c0 84-63 140-140 140s-140-56-140-140z" fill="#EFF3F0"/>
+  <path d="M100 262h312a16 16 0 0 1 0 32H100a16 16 0 0 1 0-32z" fill="#EFF3F0"/>
+  <!-- 湯気 -->
+  <g stroke="#EFF3F0" stroke-width="16" stroke-linecap="round" fill="none" opacity=".85">
+    <path d="M204 210c-18-20 18-38 0-58"/>
+    <path d="M256 196c-18-24 18-44 0-68"/>
+    <path d="M308 210c-18-20 18-38 0-58"/>
+  </g>
+</svg>
