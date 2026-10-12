@@ -640,6 +640,7 @@ input:focus,select:focus,textarea:focus{outline:none; border-color:var(--accent)
           <button class="btn danger" id="resetBtn">すべて消す</button>
         </div>
       </div>
+      <p class="hint" id="buildInfo" style="text-align:center;margin:4px 0 12px"></p>
     </section>
   </main>
 </div>
@@ -2472,6 +2473,8 @@ function fetchJson(path){
     .catch(function(){ return null; });
 }
 function boot(local, remote){
+  // 版の印は build.py が index.html に入れる（Artifact 版には無い）
+  if(window.APP_BUILD) $("buildInfo").textContent = "版 " + window.APP_BUILD;
   state = merge(local || blankState(), remote);
   if(!state.profile) state.profile = blankState().profile;
   if(!state.days) state.days = {};
@@ -2527,11 +2530,24 @@ setInterval(function(){
 </script>
 
 <script>
+window.APP_BUILD = "2026-10-12 15:04 f9ccad5";
 var canSW = location.protocol === "https:" ||
             location.hostname === "localhost" || location.hostname === "127.0.0.1";
 if ("serviceWorker" in navigator && canSW) {
+  // すでに古い版が動いていたときだけ、新しい版に切り替わった時点で読み直す
+  var hadController = !!navigator.serviceWorker.controller, reloaded = false;
+  navigator.serviceWorker.addEventListener("controllerchange", function () {
+    if (!hadController || reloaded) return;
+    reloaded = true;
+    location.reload();
+  });
   window.addEventListener("load", function () {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).then(function (reg) {
+      // iPhone は閉じて開いても裏から戻すだけのことがあるので、前に出るたびに確かめる
+      document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible") reg.update().catch(function () {});
+      });
+    }).catch(function () {});
   });
 }
 </script>
